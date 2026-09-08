@@ -1,0 +1,81 @@
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f4f4f9;
+  margin: 0;
+  padding: 20px;
+}
+.header-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 20px;
+}
+.logo {
+  background-image: url('https://mir-s3-cdn-cf.behance.net/projects/404/e04dd6167663901.Y3JvcCwxMDgwLDg0NCwwLDExNw.jpg');
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  width: 404px;
+  height: 316px;
+  text-indent: -9999px;
+  overflow: hidden;
+  margin: 0;
+}
+h2 {
+  margin-top: 10px;
+  color: #333;
+}
+form {
+  max-width: 450px;
+  margin: 0 auto;
+  background: #ffffff;
+  padding: 25px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+.campo {
+  margin-bottom: 15px;
+}
+input[type="text"],
+input[type="email"],
+input[type="number"] {
+  width: 100%;
+  padding: 8px;
+  margin-top: 5px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+input[type="submit"] {
+  background-color: #28a745;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  font-size: 16px;
+  border-radius: 4px;
+  cursor: pointer;
+  width: 100%;
+}
+input[type="submit"]:hover {
+  background-color: #218838;
+}
+.escondido {
+  display: none !important;
+}
+#mensagem-sucesso {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-height: 50vh;
+  text-align: center;
+}
+#mensagem-sucesso h1 {
+  font-size: 3rem;
+  color: #28a745;
+  margin-bottom: 10px;
+}
+#mensagem-sucesso p {
+  font-size: 1.2rem;
+  color: #555;
+}
