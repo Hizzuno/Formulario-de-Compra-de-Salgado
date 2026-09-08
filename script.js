@@ -1,61 +1,75 @@
+// Substitua pela URL gerada na 'Nova versão' da sua implantação no Apps Script
+const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwsbM6g73BFFXHH12L_Ywzq0L6F-5gxM6DgOlZEk7wcAvSVZhaBQ72sstxDRsYpiQcMvA/exec';
 
-const URL_GOOGLE_SCRIPT = "https://script.google.com/macros/s/AKfycbwsbM6g73BFFXHH12L_Ywzq0L6F-5gxM6DgOlZEk7wcAvSVZhaBQ72sstxDRsYpiQcMvA/exec";
+document.addEventListener('DOMContentLoaded', () => {
+    const form = document.getElementById('snackForm');
+    const radioQuantities = document.querySelectorAll('input[name="quantidade"]');
+    const customQuantityGroup = document.getElementById('customQuantityGroup');
+    const customQuantityInput = document.getElementById('customQuantity');
+    const successMessage = document.getElementById('successMessage');
+    const btnSubmit = document.getElementById('btnSubmit');
 
-const formulario = document.getElementById('meu-formulario');
-const headerContainer = document.querySelector('.header-container');
-const radiosQuantidade = document.querySelectorAll('input[name="quantidade"]');
-const campoPersonalizado = document.getElementById('campo-personalizado');
-const inputPersonalizado = document.getElementById('qtd_personalizada');
-const mensagemSucesso = document.getElementById('mensagem-sucesso');
+    radioQuantities.forEach(radio => {
+        radio.addEventListener('change', (e) => {
+            if (e.target.value === 'outro') {
+                customQuantityGroup.style.display = 'block';
+                customQuantityInput.required = true;
+                customQuantityInput.focus();
+            } else {
+                customQuantityGroup.style.display = 'none';
+                customQuantityInput.required = false;
+                customQuantityInput.value = '';
+            }
+        });
+    });
 
-radiosQuantidade.forEach(radio => {
-  radio.addEventListener('change', function() {
-    if (this.id === '200') {
-      campoPersonalizado.classList.remove('escondido');
-      inputPersonalizado.setAttribute('required', 'true');
-    } else {
-      campoPersonalizado.classList.add('escondido');
-      inputPersonalizado.removeAttribute('required');
-      inputPersonalizado.value = '';
-    }
-  });
-});
+    form.addEventListener('submit', async (e) => {
+        e.preventDefault();
 
-formulario.addEventListener('submit', function(event) {
-  event.preventDefault();
+        btnSubmit.disabled = true;
+        btnSubmit.innerText = 'Enviando...';
 
-  const radioSelecionado = document.querySelector('input[name="quantidade"]:checked');
-  let qtdFinal = radioSelecionado ? radioSelecionado.value : '';
+        const nome = document.getElementById('nome').value.trim();
+        const email = document.getElementById('email').value.trim();
+        
+        let quantidadeSelecionada = document.querySelector('input[name="quantidade"]:checked')?.value;
+        if (quantidadeSelecionada === 'outro') {
+            quantidadeSelecionada = customQuantityInput.value.trim();
+        }
 
-  if (radioSelecionado && radioSelecionado.id === '200') {
-    qtdFinal = inputPersonalizado.value;
-  }
+        const payload = {
+            nome: nome,
+            email: email,
+            quantidade: quantidadeSelecionada
+        };
 
-  const dadosDoPedido = {
-    nome: document.getElementById('nome').value,
-    email: document.getElementById('email').value,
-    quantidade: qtdFinal
-  };
+        try {
+            await fetch(SCRIPT_URL, {
+                method: 'POST',
+                mode: 'no-cors',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(payload)
+            });
 
-  fetch(URL_GOOGLE_SCRIPT, {
-    method: 'POST',
-    mode: 'no-cors',
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify(dadosDoPedido)
-  });
+            form.style.display = 'none';
+            successMessage.style.display = 'block';
 
-  formulario.classList.add('escondido');
-  headerContainer.classList.add('escondido');
-  mensagemSucesso.classList.remove('escondido');
+            setTimeout(() => {
+                form.reset();
+                customQuantityGroup.style.display = 'none';
+                form.style.display = 'block';
+                successMessage.style.display = 'none';
+                btnSubmit.disabled = false;
+                btnSubmit.innerText = 'Enviar Pedido';
+            }, 5000);
 
-  setTimeout(function() {
-    formulario.reset();
-    campoPersonalizado.classList.add('escondido');
-    inputPersonalizado.removeAttribute('required');
-    mensagemSucesso.classList.add('escondido');
-    headerContainer.classList.remove('escondido');
-    formulario.classList.remove('escondido');
-  }, 5000);
+        } catch (error) {
+            console.error('Erro ao enviar pedido:', error);
+            alert('Ocorreu um erro ao enviar seu pedido. Tente novamente.');
+            btnSubmit.disabled = false;
+            btnSubmit.innerText = 'Enviar Pedido';
+        }
+    });
 });
