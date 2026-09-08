@@ -1,4 +1,3 @@
-// Substitua pela sua URL do Apps Script
 const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwsbM6g73BFFXHH12L_Ywzq0L6F-5gxM6DgOlZEk7wcAvSVZhaBQ72sstxDRsYpiQcMvA/exec';
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -26,12 +25,21 @@ document.addEventListener('DOMContentLoaded', () => {
     form.addEventListener('submit', async (e) => {
         e.preventDefault();
 
+        const checkboxesSalgados = document.querySelectorAll('input[name="tipoSalgado"]:checked');
+        if (checkboxesSalgados.length === 0) {
+            alert('Por favor, selecione pelo menos um tipo de salgado.');
+            return;
+        }
+
+        const tiposSelecionados = Array.from(checkboxesSalgados)
+            .map(cb => cb.value)
+            .join(', ');
+
         btnSubmit.disabled = true;
         btnSubmit.innerText = 'Enviando...';
 
         const nome = document.getElementById('nome').value.trim();
         const email = document.getElementById('email').value.trim();
-        const tipoSalgado = document.getElementById('tipoSalgado').value;
         
         let quantidadeSelecionada = document.querySelector('input[name="quantidade"]:checked')?.value;
         if (quantidadeSelecionada === 'outro') {
@@ -41,7 +49,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const payload = {
             nome: nome,
             email: email,
-            tipoSalgado: tipoSalgado,
+            tipoSalgado: tiposSelecionados,
             quantidade: quantidadeSelecionada
         };
 
@@ -56,12 +64,14 @@ document.addEventListener('DOMContentLoaded', () => {
             });
 
             form.style.display = 'none';
+            successMessage.classList.remove('escondido');
             successMessage.style.display = 'block';
 
             setTimeout(() => {
                 form.reset();
                 customQuantityGroup.style.display = 'none';
                 form.style.display = 'block';
+                successMessage.classList.add('escondido');
                 successMessage.style.display = 'none';
                 btnSubmit.disabled = false;
                 btnSubmit.innerText = 'Enviar Pedido';
