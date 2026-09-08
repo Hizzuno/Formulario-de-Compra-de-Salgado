@@ -1,79 +1,59 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8">
-  <title>Formulário de Compra</title>
-  <link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulário de Compra de Salgado</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-  <div class="header-container">
-    <h1 class="logo">Formulário de Compra</h1>
-    <h2>Formulário de Compra</h2>
-  </div>
+    <div class="container">
+        <form id="snackForm">
+            <h2>Pedido de Salgados</h2>
+            
+            <div class="input-group">
+                <label for="nome">Nome Completo</label>
+                <input type="text" id="nome" name="nome" placeholder="Digite seu nome" required>
+            </div>
 
-  <form id="meu-formulario" action="#" method="POST">
-    
-    <div class="campo">
-      <label for="nome">Nome:</label><br>
-      <input type="text" id="nome" name="nome" required><br><br> 
+            <div class="input-group">
+                <label for="email">E-mail</label>
+                <input type="email" id="email" name="email" placeholder="Digite seu e-mail" required>
+            </div>
 
-      <label for="email">E-mail:</label><br>
-      <input type="email" id="email" name="email" required><br><br>
+            <div class="input-group">
+                <label>Quantidade de Salgados</label>
+                <div class="quantity-options">
+                    <label class="radio-option">
+                        <input type="radio" name="quantidade" value="25" required> 25 Unidades
+                    </label>
+                    <label class="radio-option">
+                        <input type="radio" name="quantidade" value="50"> 50 Unidades
+                    </label>
+                    <label class="radio-option">
+                        <input type="radio" name="quantidade" value="100"> 100 Unidades
+                    </label>
+                    <label class="radio-option">
+                        <input type="radio" name="quantidade" value="outro"> Outra quantidade
+                    </label>
+                </div>
+            </div>
+
+            <div class="input-group" id="customQuantityGroup" style="display: none;">
+                <label for="customQuantity">Especifique a quantidade</label>
+                <input type="number" id="customQuantity" name="customQuantity" min="1" placeholder="Ex: 200">
+            </div>
+
+            <button type="submit" id="btnSubmit">Enviar Pedido</button>
+        </form>
+
+        <div id="successMessage" style="display: none;">
+            <h3>Pedido Enviado com Sucesso! 🎉</h3>
+            <p>Seus dados foram registrados na planilha do Google Sheets.</p>
+        </div>
     </div>
 
-    <div class="campo">
-      <p><strong>Selecione a quantidade:</strong></p>
-      <input type="radio" id="30" name="quantidade" value="30" required>
-      <label for="30">30 Salgadinhos</label><br>
-
-      <input type="radio" id="50" name="quantidade" value="50">
-      <label for="50">50 Salgadinhos</label><br>
-
-      <input type="radio" id="100" name="quantidade" value="100">
-      <label for="100">100 Salgadinhos</label><br>
-
-      <input type="radio" id="200" name="quantidade" value="mais_de_100">
-      <label for="200">Mais de 100 Salgadinhos</label><br>
-
-      <div id="campo-personalizado" class="escondido">
-        <br>
-        <label for="qtd_personalizada">Informe a quantidade desejada:</label><br>
-        <input type="number" id="qtd_personalizada" name="qtd_personalizada" min="101" placeholder="Ex: 150">
-      </div>
-      <br>
-    </div>
-
-    <div class="campo">
-      <p><strong>Escolha os sabores:</strong></p>
-      <input type="checkbox" id="cox" name="salgados" value="Coxinha">
-      <label for="cox">Coxinha</label><br>
-
-      <input type="checkbox" id="que" name="salgados" value="Bolinha de Queijo">
-      <label for="que">Bolinha de Queijo</label><br>
-
-      <input type="checkbox" id="pre" name="salgados" value="Queijo com Presunto">
-      <label for="pre">Queijo com Presunto</label><br>
-
-      <input type="checkbox" id="kib" name="salgados"  value="Kibe">
-      <label for="kib">Kibe</label><br>
-
-      <input type="checkbox" id="cama" name="salgados" value="Camarão">
-      <label for="cama">Camarão</label><br>
-
-      <input type="checkbox" id="riso" name="salgados" value="Carne">
-      <label for="riso">Risole de Carne</label><br><br>
-    </div>
-    
-    <input type="submit" value="Enviar Pedido">
-
-  </form>
-  
-  <div id="mensagem-sucesso" class="escondido">
-    <h1>PEDIDO ENVIADO</h1>
-    <p>Obrigado! Seu pedido foi recebido com sucesso.</p>
-  </div>
-
-  <script src="script.js"></script>
+    <script src="script.js"></script>
 </body>
-</html> 
+</html>
