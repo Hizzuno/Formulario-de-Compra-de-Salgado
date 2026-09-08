@@ -1,4 +1,4 @@
-// Substitua pela URL gerada na 'Nova versão' da sua implantação no Apps Script
+// Substitua pela sua URL do Apps Script
 const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwsbM6g73BFFXHH12L_Ywzq0L6F-5gxM6DgOlZEk7wcAvSVZhaBQ72sstxDRsYpiQcMvA/exec';
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -31,6 +31,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         const nome = document.getElementById('nome').value.trim();
         const email = document.getElementById('email').value.trim();
+        const tipoSalgado = document.getElementById('tipoSalgado').value;
         
         let quantidadeSelecionada = document.querySelector('input[name="quantidade"]:checked')?.value;
         if (quantidadeSelecionada === 'outro') {
@@ -40,6 +41,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const payload = {
             nome: nome,
             email: email,
+            tipoSalgado: tipoSalgado,
             quantidade: quantidadeSelecionada
         };
 
