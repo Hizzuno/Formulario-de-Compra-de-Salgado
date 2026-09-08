@@ -3,79 +3,134 @@ body {
   background-color: #f4f4f9;
   margin: 0;
   padding: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  box-sizing: border-box;
 }
+
+.container {
+  width: 100%;
+  max-width: 450px;
+}
+
+/* Container e Logo do topo */
 .header-container {
   display: flex;
   flex-direction: column;
   align-items: center;
   margin-bottom: 20px;
 }
+
 .logo {
   background-image: url('https://mir-s3-cdn-cf.behance.net/projects/404/e04dd6167663901.Y3JvcCwxMDgwLDg0NCwwLDExNw.jpg');
   background-size: contain;
   background-repeat: no-repeat;
   background-position: center;
-  width: 404px;
-  height: 316px;
+  width: 100%;
+  max-width: 404px;
+  height: 200px;
   text-indent: -9999px;
   overflow: hidden;
-  margin: 0;
+  margin: 0 auto;
 }
+
 h2 {
   margin-top: 10px;
   color: #333;
+  text-align: center;
 }
+
+/* Formulário e Campos */
 form {
-  max-width: 450px;
-  margin: 0 auto;
   background: #ffffff;
   padding: 25px;
   border-radius: 8px;
   box-shadow: 0 4px 8px rgba(0,0,0,0.1);
 }
-.campo {
+
+.input-group {
   margin-bottom: 15px;
 }
+
+label {
+  display: block;
+  font-weight: bold;
+  margin-bottom: 5px;
+  color: #333;
+}
+
 input[type="text"],
 input[type="email"],
-input[type="number"] {
+input[type="number"],
+select {
   width: 100%;
-  padding: 8px;
+  padding: 10px;
   margin-top: 5px;
   border: 1px solid #ccc;
   border-radius: 4px;
   box-sizing: border-box;
+  font-size: 1rem;
+  background-color: #fff;
 }
-input[type="submit"] {
+
+/* Opções de Quantidade (Radio Buttons) */
+.quantity-options {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: 8px;
+}
+
+.radio-option {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: normal;
+  cursor: pointer;
+}
+
+/* Botão de Envio */
+button[type="submit"] {
   background-color: #28a745;
   color: white;
   border: none;
-  padding: 10px 20px;
+  padding: 12px 20px;
   font-size: 16px;
+  font-weight: bold;
   border-radius: 4px;
   cursor: pointer;
   width: 100%;
+  margin-top: 10px;
+  transition: background-color 0.2s;
 }
-input[type="submit"]:hover {
+
+button[type="submit"]:hover {
   background-color: #218838;
 }
-.escondido {
-  display: none !important;
+
+button[type="submit"]:disabled {
+  background-color: #6c757d;
+  cursor: not-allowed;
 }
-#mensagem-sucesso {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  min-height: 50vh;
+
+/* Mensagem de Sucesso */
+#successMessage {
+  background: #ffffff;
+  padding: 30px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
   text-align: center;
 }
-#mensagem-sucesso h1 {
-  font-size: 3rem;
+
+#successMessage h3 {
+  font-size: 1.8rem;
   color: #28a745;
   margin-bottom: 10px;
 }
-#mensagem-sucesso p {
-  font-size: 1.2rem;
+
+#successMessage p {
+  font-size: 1.1rem;
   color: #555;
 }
