@@ -7,7 +7,25 @@ document.addEventListener('DOMContentLoaded', () => {
     const customQuantityInput = document.getElementById('customQuantity');
     const successMessage = document.getElementById('successMessage');
     const btnSubmit = document.getElementById('btnSubmit');
+    const telefoneInput = document.getElementById('telefone');
 
+    // Máscara automática para telefone / WhatsApp
+    telefoneInput.addEventListener('input', (e) => {
+        let value = e.target.value.replace(/\D/g, '');
+        if (value.length > 11) value = value.slice(0, 11);
+
+        if (value.length > 6) {
+            value = `(${value.slice(0, 2)}) ${value.slice(2, 7)}-${value.slice(7)}`;
+        } else if (value.length > 2) {
+            value = `(${value.slice(0, 2)}) ${value.slice(2)}`;
+        } else if (value.length > 0) {
+            value = `(${value}`;
+        }
+
+        e.target.value = value;
+    });
+
+    // Lógica para exibir quantidade customizada
     radioQuantities.forEach(radio => {
         radio.addEventListener('change', (e) => {
             if (e.target.value === 'outro') {
@@ -22,9 +40,11 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
+    // Envio do formulário
     form.addEventListener('submit', async (e) => {
         e.preventDefault();
 
+        // Captura todos os salgados marcados
         const checkboxesSalgados = document.querySelectorAll('input[name="tipoSalgado"]:checked');
         if (checkboxesSalgados.length === 0) {
             alert('Por favor, selecione pelo menos um tipo de salgado.');
@@ -40,7 +60,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
         const nome = document.getElementById('nome').value.trim();
         const email = document.getElementById('email').value.trim();
-        
+        const telefone = telefoneInput.value.trim();
+
         let quantidadeSelecionada = document.querySelector('input[name="quantidade"]:checked')?.value;
         if (quantidadeSelecionada === 'outro') {
             quantidadeSelecionada = customQuantityInput.value.trim();
@@ -49,6 +70,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const payload = {
             nome: nome,
             email: email,
+            telefone: telefone,
             tipoSalgado: tiposSelecionados,
             quantidade: quantidadeSelecionada
         };
